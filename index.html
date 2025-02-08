@@ -1692,7 +1692,7 @@
 
             <div id="count_down" widget-id="6763867ea08b0a84da7b468d" class="wat__count-down-block">
                 <h1>¡Cuenta regresiva para nuestra boda! 💍</h1>
-                <div class="countdown">
+                <div id="countdown">
                     <p>Faltan <span id="days">0</span> días para el gran día.</p>
                 </div>
                 <div>
@@ -1705,22 +1705,34 @@
 
     </next-route-announcer>
     <script>
-        // Fecha de la boda (08/02/2025)
-        const weddingDate = new Date('2025-02-08');
+        // Fecha y hora de la boda (08/02/2025 a las 21:00)
+        const weddingDate = new Date('2025-02-08T21:00:00');
 
         function updateCountdown() {
-            const today = new Date();
-            const timeDifference = weddingDate - today;
+            const now = new Date();
+            const timeDifference = weddingDate - now;
 
-            // Convertir el tiempo restante a días
-            const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+            if (timeDifference <= 0) {
+                document.getElementById('countdown').textContent = "¡Es el día de la boda!";
+                clearInterval(interval); // Detener el contador cuando llegue el día
+                return;
+            }
+
+            // Calcular días, horas, minutos y segundos restantes
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
             // Actualizar el contenido del contador
-            document.getElementById('days').textContent = daysRemaining;
+            const countdownElement = document.getElementById('countdown');
+            countdownElement.textContent = `${days} días, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
+            countdownElement.style.fontSize = '20px'; // Cambia el tamaño de la letra aquí
+            countdownElement.style.fontWeight = 'bold'; // Si quieres que se vea más destacado
         }
 
-        // Actualizar el contador cada segundo (opcional, aunque solo es necesario 1 vez al día)
-        setInterval(updateCountdown, 1000);
+        // Actualizar el contador cada segundo
+        const interval = setInterval(updateCountdown, 1000);
 
         // Inicializar el contador
         updateCountdown();
