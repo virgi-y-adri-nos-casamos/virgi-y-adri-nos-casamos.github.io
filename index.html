@@ -1629,14 +1629,26 @@
                                         <ul>
                                             <li><b>Virgi<br></b>
                                                 <ul>
-                                                    <li>Alias: <b>escalavs.ppay</b></li>
-                                                    <li>CBU:<b> 0000076500000008492135</b></li>
+                                                    <li>Alias: <b id="alias-virgi">escalavs.ppay</b>
+                                                        <span style="cursor: pointer;"
+                                                            onclick="copyToClipboard('alias-virgi')">📋</span>
+                                                    </li>
+                                                    <li>CBU:<b id="cbu-virgi">0000076500000008492135</b>
+                                                        <span style="cursor: pointer;"
+                                                            onclick="copyToClipboard('cbu-virgi')">📋</span>
+                                                    </li>
                                                 </ul>
                                             </li>
                                             <li><b>Adri</b>
                                                 <ul>
-                                                    <li>Alias:&nbsp;<b>campsla.ppay</b></li>
-                                                    <li>CBU:<b>&nbsp;0000076500000008539946</b></li>
+                                                    <li>Alias: <b id="alias-adri">campsla.ppay</b>
+                                                        <span style="cursor: pointer;"
+                                                            onclick="copyToClipboard('alias-adri')">📋</span>
+                                                    </li>
+                                                    <li>CBU:<b id="cbu-adri">0000076500000008539946</b>
+                                                        <span style="cursor: pointer;"
+                                                            onclick="copyToClipboard('cbu-adri')">📋</span>
+                                                    </li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -1705,6 +1717,20 @@
 
     </next-route-announcer>
     <script>
+
+                function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const text = element.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Texto copiado al portapapeles: ' + text);
+                }).catch(err => {
+                    console.error('Error al copiar:', err);
+                });
+            } else {
+                console.error('Elemento no encontrado:', elementId);
+            }
+        }
         // Fecha y hora de la boda (08/02/2025 a las 21:00)
         const weddingDate = new Date('2025-02-08T21:00:00');
 
